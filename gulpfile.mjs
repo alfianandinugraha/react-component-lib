@@ -36,12 +36,12 @@ gulp.task("generate:typescript", () => {
     .then((gen) => {
       const files = gen.output.map((file) => {
         return {
-          name: file.fileName.replace("dist/", "").replace("types/", ""),
+          name: file.fileName.replace("src/", "").replace("types/", ""),
           source: file.code ?? file.source,
         };
       });
 
-      return file(files).pipe(gulp.dest("dist/esm/"));
+      return file(files).pipe(gulp.dest("dist/component/"));
     });
 });
 
