@@ -6,6 +6,7 @@ import { glob } from "glob";
 import typescript from "@rollup/plugin-typescript";
 import { deleteAsync } from "del";
 import terser from "@rollup/plugin-terser";
+import exec from "gulp-exec";
 
 gulp.task("clean", () => {
   return deleteAsync(["dist/**/*"]);
@@ -44,4 +45,13 @@ gulp.task("generate:typescript", () => {
     });
 });
 
-gulp.task("build", gulp.series("clean", "generate:typescript"));
+gulp.task("generate:storybook", () => {
+  return gulp
+    .src("./src/**/*.stories.tsx")
+    .pipe(exec("npx storybook build -o ./dist/storybook -c .storybook"));
+});
+
+gulp.task(
+  "build",
+  gulp.series("clean", "generate:typescript", "generate:storybook")
+);
