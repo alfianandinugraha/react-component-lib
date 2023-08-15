@@ -12,7 +12,7 @@ gulp.task("clean", () => {
   return deleteAsync(["dist/**/*"]);
 });
 
-gulp.task("generate:typescript", () => {
+gulp.task("build:component", () => {
   return rollup({
     input: glob.sync("src/**/*.{ts,tsx}"),
     plugins: [
@@ -45,13 +45,10 @@ gulp.task("generate:typescript", () => {
     });
 });
 
-gulp.task("generate:storybook", () => {
+gulp.task("build:storybook", () => {
   return gulp
     .src("./src/**/*.stories.tsx")
     .pipe(exec("npx storybook build -o ./dist/storybook -c .storybook"));
 });
 
-gulp.task(
-  "build",
-  gulp.series("clean", "generate:typescript", "generate:storybook")
-);
+gulp.task("build", gulp.series("clean", "build:component", "build:storybook"));
