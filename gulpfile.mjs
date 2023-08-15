@@ -7,6 +7,7 @@ import typescript from "@rollup/plugin-typescript";
 import { deleteAsync } from "del";
 import terser from "@rollup/plugin-terser";
 import exec from "gulp-exec";
+import rename from "gulp-rename";
 
 gulp.task("clean", () => {
   return deleteAsync(["dist/**/*"]);
@@ -42,6 +43,15 @@ gulp.task("build:component", () => {
       });
 
       return file(files).pipe(gulp.dest("dist/component/"));
+    })
+    .then(() => {
+      return gulp
+        .src("package.component.json")
+        .pipe(rename("package.json"))
+        .pipe(gulp.dest("dist/component/"));
+    })
+    .then(() => {
+      return gulp.src("README.md").pipe(gulp.dest("dist/component/"));
     });
 });
 
