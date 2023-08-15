@@ -6,10 +6,10 @@
     "url": "https://alfiandi.dev"
   },
   "description": "📦 Example React Component Library using Gulp + Rollup + Typescript + Storybook.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
+  "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
